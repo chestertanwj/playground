@@ -117,17 +117,17 @@ def dbscan(data, eps, minpt):
             label[k] = 2
 
             # Calculate distance of other points from this neighbour.
-            distNb = np.linalg.norm(data-data[k,:], axis=1)
+            dist_nb = np.linalg.norm(data-data[k,:], axis=1)
 
             # Find all neighbours of this neighbour (include this neighbour).
-            nbOfNb = np.where(distNb < eps)[0]
+            nb_ = np.where(dist_nb < eps)[0]
 
             # Check if number of neighbours of this neighbour is sufficient.
-            if nbOfNb.shape[0] >= minpt:
+            if nb_.shape[0] >= minpt:
                 # Label this neighbour as core point.
                 label[k] = 1
                 # Add all neighbours of this neighbour.
-                tmp = np.setdiff1d(nbOfNb, nb)
+                tmp = np.setdiff1d(nb_, nb)
                 nb = np.concatenate((nb, tmp))
 
             # Increment neighbour counter.
